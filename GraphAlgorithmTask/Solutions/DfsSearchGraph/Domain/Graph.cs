@@ -11,7 +11,7 @@ public class Graph
         Root = root;
     }
 
-    public int[][] Sort()
+    public IReadOnlyCollection<IReadOnlyCollection<int>> Sort()
     {
         var levels = new Dictionary<int, List<int>>();
         var visitedNodes = new Dictionary<NodeItem, int>();
@@ -40,14 +40,14 @@ public class Graph
         ComputeLevel(Root);
 
         var maxLevel = levels.Keys.Any() ? levels.Keys.Max() : -1;
-        var result = new List<int[]>();
+        var result = new List<IReadOnlyCollection<int>>();
 
         for (int i = 0; i <= maxLevel; i++)
         {
             if (levels.TryGetValue(i, out var values))
             {
                 values.Sort();
-                result.Add(values.ToArray());
+                result.Add(values);
             }
             else
             {
@@ -55,6 +55,6 @@ public class Graph
             }
         }
 
-        return result.ToArray();
+        return result.AsReadOnly();
     }
 }

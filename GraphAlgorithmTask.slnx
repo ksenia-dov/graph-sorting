@@ -1,6 +1,4 @@
 <Solution>
-  <Folder Name="/GraphAlgorithmTask.Tests/">
-    <Project Path="GraphAlgorithmTask.Tests/GraphAlgorithmTask.Tests.csproj" />
-  </Folder>
+  <Project Path="GraphAlgorithmTask.Tests/GraphAlgorithmTask.Tests.csproj" />
   <Project Path="GraphAlgorithmTask/GraphAlgorithmTask.csproj" />
 </Solution>

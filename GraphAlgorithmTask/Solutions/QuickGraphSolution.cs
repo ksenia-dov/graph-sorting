@@ -1,36 +1,35 @@
 using QuikGraph;
 using QuikGraph.Algorithms;
 
-public static class QuickGraphSolution
+public class QuickGraphSolution : ISolution
 {
-    public static List<List<int>> TopologicalSort()
+    public void Execute() =>
+        ExecuteInternal();
+
+    public IReadOnlyCollection<IEnumerable<int>> ExecuteInternal()
     {
         BidirectionalGraph<int, Edge<int>> graph = CreateGraph();
 
-        var sortedGraph = graph.TopologicalSort().Reverse();
+        IEnumerable<int> sortedGraph = graph.TopologicalSort().Reverse();
         var depth = new Dictionary<int, int>();
-
         foreach (var vertix in sortedGraph)
         {
             depth[vertix] = graph.OutEdges(vertix).Any()
                 ? graph.OutEdges(vertix).Max(e => depth[e.Target]) + 1
                 : 0;
         }
-
         var groups = depth
            .GroupBy(kv => kv.Value)
            .OrderBy(g => g.Key)
-           .Select(g => g.Select(kv => kv.Key).ToList())
+           .Select(g => g.Select(kv => kv.Key))
            .ToList();
 
         Console.WriteLine("Topological Sort Result:");
-
         for (int i = 0; i < groups.Count; i++)
         {
             Console.WriteLine($"Level {i}: {string.Join(", ", groups[i])}");
         }
-
-        return groups;
+        return groups.AsReadOnly();
     }
 
     private static BidirectionalGraph<int, Edge<int>> CreateGraph()

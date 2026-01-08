@@ -1,5 +1,4 @@
-﻿Console.WriteLine("Running Graph Solutions...");
+﻿List<ISolution> solutions = [new QuickGraphSolution(), new DFSSearchGraphSolution()];
 
-QuickGraphSolution.TopologicalSort();
-
-DFSSearchGraphSolution.Sort();
+Console.WriteLine("Running Graph Solutions...");
+solutions.ForEach(solution => solution.Execute());
